@@ -1,0 +1,20 @@
+{
+  "name": "adventofcode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "01_1.js",
+  "dependencies": {
+    "@types/node": "^8.0.54",
+    "lodash": "^4.17.4",
+    "moment": "^2.24.0",
+    "prettier": "^1.16.4",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.6.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
