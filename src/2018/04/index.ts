@@ -74,27 +74,56 @@ const mostSleepGuardId: number = parseInt(
 
 console.log(`GuardId with most sleeping minutes: ${mostSleepGuardId}`);
 
-const sleepingMinutes: { [minute: number]: number } = {};
+const sleepingMinutes: { [guardId: number]: { [minute: number]: number } } = {};
 Object.keys(clockRegister).forEach(date => {
   clockRegister[date].forEach((minuteGuard, minute) => {
-    if (minuteGuard === -mostSleepGuardId) {
-      if (!sleepingMinutes[minute]) {
-        sleepingMinutes[minute] = 1;
-        return;
-      }
-      sleepingMinutes[minute]++;
+    if (minuteGuard >= 0) {
+      return;
     }
+    if (!sleepingMinutes[-minuteGuard]) {
+      sleepingMinutes[-minuteGuard] = {};
+    }
+    if (!sleepingMinutes[-minuteGuard][minute]) {
+      sleepingMinutes[-minuteGuard][minute] = 1;
+      return;
+    }
+    sleepingMinutes[-minuteGuard][minute]++;
   });
 });
 
-const mostSleepAtMinuteValue = Math.max(...Object.values(sleepingMinutes));
-const mostSleepAtMinuteIndex = Object.values(sleepingMinutes).indexOf(
-  mostSleepAtMinuteValue
+const mostSleepAtMinuteValue = Math.max(
+  ...Object.values(sleepingMinutes[mostSleepGuardId])
 );
+const mostSleepAtMinuteIndex = Object.values(
+  sleepingMinutes[mostSleepGuardId]
+).indexOf(mostSleepAtMinuteValue);
 const mostSleepAtMinute: number = parseInt(
-  Object.keys(sleepingMinutes)[mostSleepAtMinuteIndex],
+  Object.keys(sleepingMinutes[mostSleepGuardId])[mostSleepAtMinuteIndex],
   10
 );
 
 console.log(`Most sleepy minute: ${mostSleepAtMinute}`);
-console.log(`Answer should be: ${mostSleepGuardId * mostSleepAtMinute}`);
+console.log(`Answer1 should be: ${mostSleepGuardId * mostSleepAtMinute}`);
+
+let mostSleepyMinuteOverallValue = 0;
+let mostSleepyMinuteOverallGuardId = 0;
+let mostSleepyMinuteOverallMinute = 0;
+Object.keys(sleepingMinutes).forEach(guardId => {
+  const sleepingMinutesMinuteValues = sleepingMinutes[guardId];
+  Object.keys(sleepingMinutesMinuteValues).forEach(minute => {
+    const value = sleepingMinutesMinuteValues[minute];
+    if (value > mostSleepyMinuteOverallValue) {
+      mostSleepyMinuteOverallValue = value;
+      mostSleepyMinuteOverallGuardId = parseInt(guardId, 10);
+      mostSleepyMinuteOverallMinute = parseInt(minute, 10);
+    }
+  });
+});
+
+console.log(
+  `Most sleepy overall: guard ${mostSleepyMinuteOverallGuardId} at minute ${mostSleepyMinuteOverallMinute} (${mostSleepyMinuteOverallValue})`
+);
+console.log(
+  `Answer2 should be: ${mostSleepyMinuteOverallGuardId *
+    mostSleepyMinuteOverallMinute}`
+);
