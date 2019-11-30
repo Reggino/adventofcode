@@ -6,6 +6,17 @@ interface ICoord {
   y: number;
 }
 
+function sum(input: number[]) {
+  let total = 0;
+  for (let i = 0; i < input.length; i++) {
+    if (isNaN(input[i])) {
+      continue;
+    }
+    total += Number(input[i]);
+  }
+  return total;
+}
+
 function getDistance(a: ICoord, b: ICoord): number {
   return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
 }
@@ -76,3 +87,19 @@ coords.forEach((coord, coordKey) => {
   });
   console.log("Got ", coordKey, coordCount);
 });
+
+let lessThan1000CellCount = 0;
+
+grid.forEach((row, rowKey) => {
+  row.forEach((cell, columnKey) => {
+    const distances = [];
+    coords.forEach((coord, key) => {
+      distances.push(getDistance(coord, { x: columnKey, y: rowKey }));
+    });
+    if (sum(distances) < 10000) {
+      lessThan1000CellCount += 1;
+    }
+  });
+});
+
+console.log("Area with less than 10000 distance", lessThan1000CellCount);
