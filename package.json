@@ -5,7 +5,7 @@
   "main": "01_1.js",
   "dependencies": {
     "@types/node": "^8.0.54",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "moment": "^2.24.0",
     "prettier": "^1.16.4",
     "ts-node": "^3.3.0",
