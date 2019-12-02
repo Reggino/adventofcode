@@ -4,6 +4,7 @@
   "description": "",
   "main": "01_1.js",
   "dependencies": {
+    "@blakeembrey/deque": "^1.0.5",
     "@types/node": "^8.0.54",
     "lodash": "^4.17.13",
     "moment": "^2.24.0",
