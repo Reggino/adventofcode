@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "lib": ["esnext"],
-    "types": ["node"]
+    "types": ["node"],
+    "strict": true
   }
 }
