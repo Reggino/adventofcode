@@ -114,3 +114,5 @@ stars.forEach(star => {
 sky.forEach(row => {
   console.log(row.join(""));
 });
+
+console.log(`Had to wait ${time} seconds!`);
