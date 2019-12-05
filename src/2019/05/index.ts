@@ -8,7 +8,7 @@ const defaultMem = readFileSync(join(__dirname, "./input.txt"), {
   .split(",")
   .map(line => Math.floor(parseInt(line, 10)));
 
-const PARAMETER = 1;
+const PARAMETER = 5;
 
 function run() {
   let pc = 0;
@@ -47,6 +47,34 @@ function run() {
 
       case 4: // output
         console.log(readArgument(!!instructionParts.pop()));
+        break;
+
+      case 5: // jump-if-true
+        arg1 = readArgument(!!instructionParts.pop());
+        arg2 = readArgument(!!instructionParts.pop());
+        if (arg1 !== 0) {
+          pc = arg2;
+        }
+        break;
+
+      case 6: // jump-if-false
+        arg1 = readArgument(!!instructionParts.pop());
+        arg2 = readArgument(!!instructionParts.pop());
+        if (arg1 === 0) {
+          pc = arg2;
+        }
+        break;
+
+      case 7: // less than
+        arg1 = readArgument(!!instructionParts.pop());
+        arg2 = readArgument(!!instructionParts.pop());
+        mem[mem[pc++]] = arg1 < arg2 ? 1 : 0;
+        break;
+
+      case 8: // equals
+        arg1 = readArgument(!!instructionParts.pop());
+        arg2 = readArgument(!!instructionParts.pop());
+        mem[mem[pc++]] = arg1 === arg2 ? 1 : 0;
         break;
 
       case 9:
