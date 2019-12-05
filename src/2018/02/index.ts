@@ -11,14 +11,16 @@ let wordsWith2EqualLetters = 0;
 let wordsWith3EqualLetters = 0;
 
 strings.forEach(string => {
-  const letterCountHash = string.split("").reduce((prev, letter) => {
-    if (!prev[letter]) {
-      prev[letter] = 1;
-    } else {
-      prev[letter] += 1;
-    }
-    return prev;
-  }, {});
+  const letterCountHash = string
+    .split("")
+    .reduce((prev: { [letter: string]: number }, letter) => {
+      if (!prev[letter]) {
+        prev[letter] = 1;
+      } else {
+        prev[letter] += 1;
+      }
+      return prev;
+    }, {});
 
   if (Object.values(letterCountHash).indexOf(2) > -1) {
     wordsWith2EqualLetters += 1;
