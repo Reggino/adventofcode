@@ -65,10 +65,6 @@ class IntcodePc {
   public run(): void {
     while (1) {
       const instruction = this.mem[this.pc++];
-      console.log(instruction);
-      if (instruction === 9) {
-        debugger;
-      }
       const instructionParts = `${instruction}`
         .split("")
         .map(digit => parseInt(digit, 10));
@@ -152,8 +148,14 @@ class IntcodePc {
   }
 }
 
-const pc = new IntcodePc();
+let pc = new IntcodePc();
 pc.load(defaultMem);
 pc.addInput(1);
+pc.run();
+console.log(pc.output);
+
+pc = new IntcodePc();
+pc.load(defaultMem);
+pc.addInput(2);
 pc.run();
 console.log(pc.output);
