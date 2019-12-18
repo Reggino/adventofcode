@@ -8,7 +8,7 @@ const instructions = readFileSync(path.join(__dirname, "./input.txt"), {
   .split("\n");
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase();
-const deps = alphabet.split("").reduce((prev, letter) => {
+const deps:any = alphabet.split("").reduce((prev:any, letter:any) => {
   prev[letter] = [];
   return prev;
 }, {});
@@ -23,7 +23,7 @@ instructions.map(instruction => {
   deps[targetStep].push(dependencyStep);
 });
 
-const executed = [];
+const executed: Array<string | undefined> = [];
 
 const canExecute = (letter: string) => {
   if (executed.indexOf(letter) >= 0) {
@@ -31,21 +31,21 @@ const canExecute = (letter: string) => {
   }
   if (
     workerQueues.findIndex(
-      queue => queue.findIndex(queueLetter => queueLetter === letter) >= 0
+      (queue: any[]) => queue.findIndex(queueLetter => queueLetter === letter) >= 0
     ) >= 0
   ) {
     return false;
   }
-  return !deps[letter].some(letterDeps => executed.indexOf(letterDeps) === -1);
+  return !deps[letter].some((letterDeps: string | undefined) => executed.indexOf(letterDeps) === -1);
 };
 
-const workerQueues = [[], [], [], [], []];
+const workerQueues:any = [[], [], [], [], []];
 let secondsPassed = 0;
 
 while (executed.length < alphabet.length) {
   // fill queues
   alphabet.split("").forEach(letter => {
-    const freeWorkerIndex = workerQueues.findIndex(queue => !queue.length);
+    const freeWorkerIndex = workerQueues.findIndex((queue: string | any[]) => !queue.length);
     if (freeWorkerIndex >= 0 && canExecute(letter)) {
       for (let i = 0; i < letter.charCodeAt(0) - 4; i++) {
         workerQueues[freeWorkerIndex].push(letter);
@@ -58,9 +58,9 @@ while (executed.length < alphabet.length) {
   console.log(workerQueues);
 
   // process queues
-  workerQueues.forEach(queue => {
+  workerQueues.forEach((queue: any[]) => {
     if (queue.length) {
-      let executedLetter = queue.shift();
+      const executedLetter = queue.shift();
       if (!queue.length) {
         executed.push(executedLetter);
       }

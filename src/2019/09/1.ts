@@ -9,12 +9,12 @@ const defaultMem = readFileSync(join(__dirname, "./input.txt"), {
   .map(line => Math.floor(parseInt(line, 10)));
 
 class IntcodePc {
+
+  public output: number[];
   private input: number[];
   private pc: number;
   private mem: number[];
   private relativeBase: number;
-
-  public output: number[];
 
   constructor() {
     this.input = [];
@@ -32,36 +32,6 @@ class IntcodePc {
     this.input.push(input);
   }
 
-  private readArgument(mode?: number) {
-    switch (mode) {
-      case 1: // absolute
-        return this.mem[this.pc++];
-
-      case 2: // relative
-        return this.mem[this.mem[this.pc++] + this.relativeBase];
-
-      default:
-      case 0: // position
-        return this.mem[this.mem[this.pc++]];
-    }
-  }
-
-  private writeArgument(mode: number | undefined, value: number):void {
-    switch (mode) {
-      case 1: // absolute
-        throw new Error('Cannot write argument in absolute mode');
-
-      case 2: // relative
-        this.mem[this.mem[this.pc++] + this.relativeBase] = value;
-        break;
-
-      default:
-      case 0: // position
-        this.mem[this.mem[this.pc++]] = value;
-        break;
-    }
-  }
-
   public run(): void {
     while (1) {
       const instruction = this.mem[this.pc++];
@@ -76,7 +46,7 @@ class IntcodePc {
       if (zero && zero === 9) {
         // valid end of program
         return;
-        //throw new Error("End of program");
+        // throw new Error("End of program");
         // return this.mem[0];
       }
 
@@ -144,6 +114,36 @@ class IntcodePc {
           console.log(this.pc, opCode, this.mem);
           throw new Error("Invalid opcode");
       }
+    }
+  }
+
+  private readArgument(mode?: number) {
+    switch (mode) {
+      case 1: // absolute
+        return this.mem[this.pc++];
+
+      case 2: // relative
+        return this.mem[this.mem[this.pc++] + this.relativeBase];
+
+      default:
+      case 0: // position
+        return this.mem[this.mem[this.pc++]];
+    }
+  }
+
+  private writeArgument(mode: number | undefined, value: number):void {
+    switch (mode) {
+      case 1: // absolute
+        throw new Error('Cannot write argument in absolute mode');
+
+      case 2: // relative
+        this.mem[this.mem[this.pc++] + this.relativeBase] = value;
+        break;
+
+      default:
+      case 0: // position
+        this.mem[this.mem[this.pc++]] = value;
+        break;
     }
   }
 }

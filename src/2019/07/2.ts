@@ -19,7 +19,7 @@ class Amp {
     this.mem = [...defaultMem];
   }
 
-  run(input: number): number {
+  public run(input: number): number {
     this.inputs.push(input);
 
     const readArgument = (immediate: boolean) => {
@@ -121,15 +121,15 @@ function runSeries(phaseSettings: number[]) {
 
 // https://stackoverflow.com/questions/9960908/permutations-in-javascript
 const permutator = (inputArr: number[]) => {
-    let result: number[][] = [];
+    const result: number[][] = [];
 
     const permute = (arr: number[], m = []) => {
         if (arr.length === 0) {
             result.push(m);
         } else {
             for (let i = 0; i < arr.length; i++) {
-                let curr = arr.slice();
-                let next = curr.splice(i, 1) as any;
+                const curr = arr.slice();
+                const next = curr.splice(i, 1) as any;
                 permute(curr.slice(), m.concat(next));
             }
         }

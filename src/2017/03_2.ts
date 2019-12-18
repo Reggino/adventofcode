@@ -1,7 +1,7 @@
 import {isNumber} from "util";
 
-function createSpiral(size:number):number[][] {
-    const result:number[][] = [[]];
+function createSpiral(size:number):Array<Array<number|undefined>> {
+    const result:Array<Array<number|undefined>> = [[]];
     if (!size) {
         return result;
     }
@@ -12,12 +12,12 @@ function createSpiral(size:number):number[][] {
     let i:number;
     let newRow:number[];
 
-    function getValue(row, col):number {
+    function getValue(row:any, col:any):number {
         let value = 0;
         [row - 1, row, row + 1].forEach(rowPointer => {
             [col - 1, col, col + 1].forEach(colPointer => {
                 if (result[rowPointer] && result[rowPointer][colPointer]) {
-                    value += result[rowPointer][colPointer]
+                    value += result[rowPointer][colPointer] as number
                 }
             })
         });

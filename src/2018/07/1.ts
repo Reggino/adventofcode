@@ -8,7 +8,7 @@ const instructions = readFileSync(path.join(__dirname, "./input.txt"), {
   .split("\n");
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase();
-const deps = alphabet.split("").reduce((prev, letter) => {
+const deps = alphabet.split("").reduce((prev:any, letter) => {
   prev[letter] = [];
   return prev;
 }, {});
@@ -23,13 +23,13 @@ instructions.map(instruction => {
   deps[targetStep].push(dependencyStep);
 });
 
-const executed = [];
+const executed: string[] = [];
 
 const canExecute = (letter: string) => {
   if (executed.indexOf(letter) >= 0) {
     return false;
   }
-  return !deps[letter].some(letterDeps => executed.indexOf(letterDeps) === -1);
+  return !deps[letter].some((letterDeps: string) => executed.indexOf(letterDeps) === -1);
 };
 
 while (executed.length < alphabet.length) {

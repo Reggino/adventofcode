@@ -6,19 +6,19 @@ const strings = readFileSync(path.join(__dirname, "./input.txt"), {
   encoding: "utf-8"
 })
   .split("\n")
-  .filter(string => !!string);
+  .filter(str => !!str);
 
-const hash = {};
+const hash:any = {};
 
-strings.forEach(string => {
-  const parsedString = /\[(\d+-\d+-\d+ \d+:\d+)] (.+)$/g.exec(string);
+strings.forEach(str => {
+  const parsedString = /\[(\d+-\d+-\d+ \d+:\d+)] (.+)$/g.exec(str);
   if (parsedString) {
     hash[parsedString[1]] = parsedString[2];
   }
 });
 
 const pointer = moment("1518-02-22 22:00");
-const clockRegister = {};
+const clockRegister:any = {};
 let guardId = 0;
 
 while (pointer.isBefore("1518-11-24 00:01")) {
@@ -27,7 +27,7 @@ while (pointer.isBefore("1518-11-24 00:01")) {
   const event = hash[pointer.format("YYYY-MM-DD HH:mm")];
   if (event) {
     if (event.startsWith("Guard #")) {
-      guardId = parseInt(event.replace(/\D/g, ""));
+      guardId = parseInt(event.replace(/\D/g, ""), 10);
     }
     if (event.startsWith("falls asleep")) {
       guardId *= -1;
@@ -54,7 +54,7 @@ while (pointer.isBefore("1518-11-24 00:01")) {
 
 const guardSleepCount: { [guardId: number]: number } = {};
 Object.keys(clockRegister).forEach(date => {
-  clockRegister[date].forEach(minuteGuard => {
+  clockRegister[date].forEach((minuteGuard: number) => {
     if (minuteGuard >= 0) {
       return;
     }
@@ -76,7 +76,7 @@ console.log(`GuardId with most sleeping minutes: ${mostSleepGuardId}`);
 
 const sleepingMinutes: { [guardId: number]: { [minute: number]: number } } = {};
 Object.keys(clockRegister).forEach(date => {
-  clockRegister[date].forEach((minuteGuard, minute) => {
+  clockRegister[date].forEach((minuteGuard: number, minute: number) => {
     if (minuteGuard >= 0) {
       return;
     }
@@ -108,13 +108,13 @@ console.log(`Answer1 should be: ${mostSleepGuardId * mostSleepAtMinute}`);
 let mostSleepyMinuteOverallValue = 0;
 let mostSleepyMinuteOverallGuardId = 0;
 let mostSleepyMinuteOverallMinute = 0;
-Object.keys(sleepingMinutes).forEach(guardId => {
-  const sleepingMinutesMinuteValues = sleepingMinutes[guardId];
-  Object.keys(sleepingMinutesMinuteValues).forEach(minute => {
+Object.keys(sleepingMinutes).forEach((guardId2:any) => {
+  const sleepingMinutesMinuteValues = sleepingMinutes[guardId2];
+  Object.keys(sleepingMinutesMinuteValues).forEach((minute:any) => {
     const value = sleepingMinutesMinuteValues[minute];
     if (value > mostSleepyMinuteOverallValue) {
       mostSleepyMinuteOverallValue = value;
-      mostSleepyMinuteOverallGuardId = parseInt(guardId, 10);
+      mostSleepyMinuteOverallGuardId = parseInt(guardId2, 10);
       mostSleepyMinuteOverallMinute = parseInt(minute, 10);
     }
   });

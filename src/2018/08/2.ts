@@ -9,14 +9,14 @@ const numbers = readFileSync(path.join(__dirname, "./input.txt"), {
   .map(numberString => parseInt(numberString, 10));
 
 interface INode {
-  childNodes: Array<INode>;
+  childNodes: INode[];
   metadata: number[];
 }
 
 let ptr = 0;
 
 function createTreeNode(): INode {
-  const node = {
+  const node:any = {
     childNodes: [],
     metadata: []
   };

@@ -1,5 +1,5 @@
-import * as workerpool from "workerpool";
 import * as Promise from "bluebird";
+import * as workerpool from "workerpool";
 
 const pool = workerpool.pool();
 const MAX_GRID_SIZE = 300;

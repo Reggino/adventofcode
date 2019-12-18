@@ -1,16 +1,16 @@
 import { readFileSync } from "fs";
-const path = require("path");
+import * as path from "path";
 
 const strings = readFileSync(path.join(__dirname, "./input.txt"), {
   encoding: "utf-8"
 })
   .split("\n")
-  .filter(string => !!string);
+  .filter(str => !!str);
 
-const fabric = [];
+const fabric:any[] = [];
 
-strings.forEach(string => {
-  const parsedString = /#(\d+) @ (\d+),(\d+): (\d+)x(\d+)/g.exec(string);
+strings.forEach(str => {
+  const parsedString = /#(\d+) @ (\d+),(\d+): (\d+)x(\d+)/g.exec(str) as any;
   const left = parseInt(parsedString[2], 10);
   const top = parseInt(parsedString[3], 10);
   const width = parseInt(parsedString[4], 10);
@@ -30,15 +30,16 @@ strings.forEach(string => {
 
 let counter = 0;
 fabric.forEach(row => {
-  row.forEach(cell => {
+  row.forEach((cell: number) => {
     counter += cell > 1 ? 1 : 0;
   });
 });
 
 console.log(counter);
 
+// tslint:disable-next-line:variable-name
 strings.forEach(string => {
-  const parsedString = /#(\d+) @ (\d+),(\d+): (\d+)x(\d+)/g.exec(string);
+  const parsedString = /#(\d+) @ (\d+),(\d+): (\d+)x(\d+)/g.exec(string) as any;
   const left = parseInt(parsedString[2], 10);
   const top = parseInt(parsedString[3], 10);
   const width = parseInt(parsedString[4], 10);

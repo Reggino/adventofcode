@@ -1,7 +1,7 @@
 import {isNumber} from "util";
 
-function createSpiral(size:number):number[][] {
-    const result:number[][] = [[]];
+function createSpiral(size:number):Array<Array<number|undefined>> {
+    const result:Array<Array<number|undefined>> = [[]];
     if (!size) {
         return result;
     }
@@ -71,6 +71,6 @@ function createSpiral(size:number):number[][] {
 
 const spiral = createSpiral(368078);
 
-//console.log(spiral.)
+// console.log(spiral.)
 
-//.forEach(row => console.log(JSON.stringify(row)));
+// .forEach(row => console.log(JSON.stringify(row)));

@@ -8,6 +8,7 @@ interface ICoord {
 
 function sum(input: number[]) {
   let total = 0;
+  // tslint:disable-next-line:prefer-for-of
   for (let i = 0; i < input.length; i++) {
     if (isNaN(input[i])) {
       continue;
@@ -21,7 +22,7 @@ function getDistance(a: ICoord, b: ICoord): number {
   return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
 }
 
-let coords = readFileSync(path.join(__dirname, "./input.txt"), {
+const coords = readFileSync(path.join(__dirname, "./input.txt"), {
   encoding: "utf-8"
 })
   .trim()
@@ -40,7 +41,7 @@ const grid = new Array(400)
 
 grid.forEach((row, rowKey) => {
   row.forEach((cell, columnKey) => {
-    const distances = [];
+    const distances:any[] = [];
     coords.forEach((coord, key) => {
       distances.push(getDistance(coord, { x: columnKey, y: rowKey }));
     });
@@ -92,7 +93,7 @@ let lessThan1000CellCount = 0;
 
 grid.forEach((row, rowKey) => {
   row.forEach((cell, columnKey) => {
-    const distances = [];
+    const distances:any[] = [];
     coords.forEach((coord, key) => {
       distances.push(getDistance(coord, { x: columnKey, y: rowKey }));
     });

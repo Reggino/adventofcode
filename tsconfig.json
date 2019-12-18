@@ -3,5 +3,6 @@
     "lib": ["esnext"],
     "types": ["node"],
     "strict": true
-  }
+  },
+  "include": ["src"]
 }
