@@ -9,7 +9,6 @@ const defaultMem = readFileSync(join(__dirname, "./input.txt"), {
   .map(line => Math.floor(parseInt(line, 10)));
 
 class IntcodePc {
-
   public output: number[];
   private input: number[];
   private pc: number;
@@ -67,7 +66,10 @@ class IntcodePc {
           if (!this.input.length) {
             throw new Error("Missing required input");
           }
-          this.writeArgument(instructionParts.pop(), this.input.shift() as number);
+          this.writeArgument(
+            instructionParts.pop(),
+            this.input.shift() as number
+          );
           break;
 
         case 4: // output
@@ -131,10 +133,10 @@ class IntcodePc {
     }
   }
 
-  private writeArgument(mode: number | undefined, value: number):void {
+  private writeArgument(mode: number | undefined, value: number): void {
     switch (mode) {
       case 1: // absolute
-        throw new Error('Cannot write argument in absolute mode');
+        throw new Error("Cannot write argument in absolute mode");
 
       case 2: // relative
         this.mem[this.mem[this.pc++] + this.relativeBase] = value;

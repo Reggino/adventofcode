@@ -41,7 +41,7 @@ const grid = new Array(400)
 
 grid.forEach((row, rowKey) => {
   row.forEach((cell, columnKey) => {
-    const distances:any[] = [];
+    const distances: any[] = [];
     coords.forEach((coord, key) => {
       distances.push(getDistance(coord, { x: columnKey, y: rowKey }));
     });
@@ -93,7 +93,7 @@ let lessThan1000CellCount = 0;
 
 grid.forEach((row, rowKey) => {
   row.forEach((cell, columnKey) => {
-    const distances:any[] = [];
+    const distances: any[] = [];
     coords.forEach((coord, key) => {
       distances.push(getDistance(coord, { x: columnKey, y: rowKey }));
     });

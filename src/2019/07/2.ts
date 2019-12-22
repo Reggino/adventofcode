@@ -2,7 +2,7 @@ import { readFileSync } from "fs";
 import { join } from "path";
 
 const defaultMem = readFileSync(join(__dirname, "./input.txt"), {
-    encoding: "utf-8"
+  encoding: "utf-8"
 })
   .trim()
   .split(",")
@@ -121,30 +121,30 @@ function runSeries(phaseSettings: number[]) {
 
 // https://stackoverflow.com/questions/9960908/permutations-in-javascript
 const permutator = (inputArr: number[]) => {
-    const result: number[][] = [];
+  const result: number[][] = [];
 
-    const permute = (arr: number[], m = []) => {
-        if (arr.length === 0) {
-            result.push(m);
-        } else {
-            for (let i = 0; i < arr.length; i++) {
-                const curr = arr.slice();
-                const next = curr.splice(i, 1) as any;
-                permute(curr.slice(), m.concat(next));
-            }
-        }
-    };
+  const permute = (arr: number[], m = []) => {
+    if (arr.length === 0) {
+      result.push(m);
+    } else {
+      for (let i = 0; i < arr.length; i++) {
+        const curr = arr.slice();
+        const next = curr.splice(i, 1) as any;
+        permute(curr.slice(), m.concat(next));
+      }
+    }
+  };
 
-    permute(inputArr);
+  permute(inputArr);
 
-    return result;
+  return result;
 };
 
 const combinations = permutator([5, 6, 7, 8, 9]);
 console.log(
-    combinations.reduce(
-        (prev: number, combination: number[]) =>
-            Math.max(prev, runSeries(combination)),
-        0
-    )
+  combinations.reduce(
+    (prev: number, combination: number[]) =>
+      Math.max(prev, runSeries(combination)),
+    0
+  )
 );

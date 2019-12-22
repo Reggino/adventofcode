@@ -52,8 +52,8 @@ const finalImage = layers.reduce((prev, layer) => {
 }, new Array(150).fill(2));
 
 for (let y = 0; y < 6; y++) {
-    for (let x = 0; x < 25; x++) {
-        process.stdout.write(`${finalImage[(y * 25) + x] ? '■' : ' '}`);
-    }
-    process.stdout.write('\n');
+  for (let x = 0; x < 25; x++) {
+    process.stdout.write(`${finalImage[y * 25 + x] ? "■" : " "}`);
+  }
+  process.stdout.write("\n");
 }

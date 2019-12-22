@@ -1,19 +1,23 @@
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { readFileSync } from "fs";
+import { join } from "path";
 
-const instructions = readFileSync(join(__dirname, './05/input.txt'), { encoding: 'utf-8' }).split('\n').map(number => parseInt(number, 10));
+const instructions = readFileSync(join(__dirname, "./05/input.txt"), {
+  encoding: "utf-8"
+})
+  .split("\n")
+  .map(number => parseInt(number, 10));
 // const instructions = [0,3,0,1,-3];
 
 let pointer = 0;
 let step = 0;
 
-while ((pointer >= 0) && (pointer <= instructions.length)) {
-    const lastPointer = pointer;
-    pointer += instructions[pointer];
-    instructions[lastPointer] = ((instructions[lastPointer] >= 3)
-            ? instructions[lastPointer] - 1
-            : instructions[lastPointer] + 1
-    );
-    step++;
+while (pointer >= 0 && pointer <= instructions.length) {
+  const lastPointer = pointer;
+  pointer += instructions[pointer];
+  instructions[lastPointer] =
+    instructions[lastPointer] >= 3
+      ? instructions[lastPointer] - 1
+      : instructions[lastPointer] + 1;
+  step++;
 }
 console.log(step - 1);

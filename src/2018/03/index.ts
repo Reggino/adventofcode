@@ -7,7 +7,7 @@ const strings = readFileSync(path.join(__dirname, "./input.txt"), {
   .split("\n")
   .filter(str => !!str);
 
-const fabric:any[] = [];
+const fabric: any[] = [];
 
 strings.forEach(str => {
   const parsedString = /#(\d+) @ (\d+),(\d+): (\d+)x(\d+)/g.exec(str) as any;

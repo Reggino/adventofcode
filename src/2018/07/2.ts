@@ -8,7 +8,7 @@ const instructions = readFileSync(path.join(__dirname, "./input.txt"), {
   .split("\n");
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase();
-const deps:any = alphabet.split("").reduce((prev:any, letter:any) => {
+const deps: any = alphabet.split("").reduce((prev: any, letter: any) => {
   prev[letter] = [];
   return prev;
 }, {});
@@ -31,21 +31,26 @@ const canExecute = (letter: string) => {
   }
   if (
     workerQueues.findIndex(
-      (queue: any[]) => queue.findIndex(queueLetter => queueLetter === letter) >= 0
+      (queue: any[]) =>
+        queue.findIndex(queueLetter => queueLetter === letter) >= 0
     ) >= 0
   ) {
     return false;
   }
-  return !deps[letter].some((letterDeps: string | undefined) => executed.indexOf(letterDeps) === -1);
+  return !deps[letter].some(
+    (letterDeps: string | undefined) => executed.indexOf(letterDeps) === -1
+  );
 };
 
-const workerQueues:any = [[], [], [], [], []];
+const workerQueues: any = [[], [], [], [], []];
 let secondsPassed = 0;
 
 while (executed.length < alphabet.length) {
   // fill queues
   alphabet.split("").forEach(letter => {
-    const freeWorkerIndex = workerQueues.findIndex((queue: string | any[]) => !queue.length);
+    const freeWorkerIndex = workerQueues.findIndex(
+      (queue: string | any[]) => !queue.length
+    );
     if (freeWorkerIndex >= 0 && canExecute(letter)) {
       for (let i = 0; i < letter.charCodeAt(0) - 4; i++) {
         workerQueues[freeWorkerIndex].push(letter);

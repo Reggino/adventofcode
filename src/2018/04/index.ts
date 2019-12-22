@@ -8,7 +8,7 @@ const strings = readFileSync(path.join(__dirname, "./input.txt"), {
   .split("\n")
   .filter(str => !!str);
 
-const hash:any = {};
+const hash: any = {};
 
 strings.forEach(str => {
   const parsedString = /\[(\d+-\d+-\d+ \d+:\d+)] (.+)$/g.exec(str);
@@ -18,7 +18,7 @@ strings.forEach(str => {
 });
 
 const pointer = moment("1518-02-22 22:00");
-const clockRegister:any = {};
+const clockRegister: any = {};
 let guardId = 0;
 
 while (pointer.isBefore("1518-11-24 00:01")) {
@@ -108,9 +108,9 @@ console.log(`Answer1 should be: ${mostSleepGuardId * mostSleepAtMinute}`);
 let mostSleepyMinuteOverallValue = 0;
 let mostSleepyMinuteOverallGuardId = 0;
 let mostSleepyMinuteOverallMinute = 0;
-Object.keys(sleepingMinutes).forEach((guardId2:any) => {
+Object.keys(sleepingMinutes).forEach((guardId2: any) => {
   const sleepingMinutesMinuteValues = sleepingMinutes[guardId2];
-  Object.keys(sleepingMinutesMinuteValues).forEach((minute:any) => {
+  Object.keys(sleepingMinutesMinuteValues).forEach((minute: any) => {
     const value = sleepingMinutesMinuteValues[minute];
     if (value > mostSleepyMinuteOverallValue) {
       mostSleepyMinuteOverallValue = value;

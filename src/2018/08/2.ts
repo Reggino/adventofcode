@@ -16,7 +16,7 @@ interface INode {
 let ptr = 0;
 
 function createTreeNode(): INode {
-  const node:any = {
+  const node: any = {
     childNodes: [],
     metadata: []
   };
