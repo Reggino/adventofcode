@@ -33,3 +33,12 @@ console.log(
       : prev;
   }, 0)
 );
+
+console.log(
+  values.reduce((prev, lineData) => {
+    const matchCount =
+      (lineData.password[lineData.from - 1] === lineData.letter ? 1 : 0) +
+      (lineData.password[lineData.to - 1] === lineData.letter ? 1 : 0);
+    return matchCount === 1 ? prev + 1 : prev;
+  }, 0)
+);
