@@ -58,4 +58,15 @@ function getPassId(pass: string) {
   return rowIndex.min * 8 + columnIndex.min;
 }
 
-console.log(Math.max(...passes.map(getPassId)));
+const passIds = passes.map(getPassId);
+const highId = Math.max(...passIds);
+
+for (let i = 100; i < highId; i++) {
+  const index = passIds.findIndex(passId => passId === i);
+  const prevIndex = passIds.findIndex(passId => passId === i - 1);
+  const nextIndex = passIds.findIndex(passId => passId === i + 2);
+  if (index === -1 && prevIndex >= 0 && nextIndex >= 0) {
+    console.log(highId, i);
+    process.exit(0);
+  }
+}
