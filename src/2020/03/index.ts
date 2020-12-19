@@ -6,20 +6,24 @@ const treeMap = readFileSync(join(__dirname, "./input.txt"), {
 })
   .trim()
   .split("\n");
-const requiredRowLength = treeMap.length * 3;
-const expandedTreeMap = treeMap.map(row => {
-  let expandedRow = row;
-  while (expandedRow.length < requiredRowLength) {
-    expandedRow = `${expandedRow}${row}`;
+
+const getTreeCount = (rightDelta: number, downDelta: number) => {
+  let right = rightDelta;
+  let down = downDelta;
+  let result = 0;
+  while (down < treeMap.length) {
+    result += treeMap[down][right % treeMap[down].length] === "#" ? 1 : 0;
+    right += rightDelta;
+    down += downDelta;
   }
-  return expandedRow;
-});
+  return result;
+};
 
 console.log(
-  expandedTreeMap.reduce(
-    (prev, next, index) => prev + (next[index * 3] === "#" ? 1 : 0),
-    0
-  )
+  getTreeCount(3, 1),
+  getTreeCount(1, 1) *
+    getTreeCount(3, 1) *
+    getTreeCount(5, 1) *
+    getTreeCount(7, 1) *
+    getTreeCount(1, 2)
 );
-
-// not 15, 51, 78
