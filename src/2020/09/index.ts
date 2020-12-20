@@ -23,14 +23,36 @@ function check(number: number) {
   return false;
 }
 
+let invalidNumber: number = 0;
+
 numbers.forEach(number => {
   if (!check(number)) {
+    invalidNumber = number;
     console.log("Check failed for", number);
-    process.exit(0);
   }
   // update check numbers
   checkNumbers.shift();
   checkNumbers.push(number);
 });
+
+function getContiguous(index: number): number[] | null {
+  const result = [];
+  let resultValue = 0;
+  while (resultValue < invalidNumber) {
+    resultValue += numbers[index + result.length];
+    result.push(numbers[index + result.length]);
+  }
+  return resultValue === invalidNumber ? result : null;
+}
+
+for (let i = 0; i < numbers.length; i++) {
+  const contiguous = getContiguous(i);
+  if (contiguous) {
+    const encryptionWeakness =
+      Math.min(...contiguous) + Math.max(...contiguous);
+    console.log("Found encryption weakness", encryptionWeakness);
+    process.exit(0);
+  }
+}
 
 console.log("At the end!");
