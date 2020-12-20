@@ -26,8 +26,8 @@ const debugData: { [pc: number]: true } = {};
 
 while ((instruction = instructions[pc])) {
   if (debugData[pc]) {
-    console.log(acc);
-    process.exit(0);
+    console.log("crashed", acc);
+    process.exit(1);
   }
   debugData[pc] = true;
   switch (instruction.code) {
@@ -46,4 +46,4 @@ while ((instruction = instructions[pc])) {
   }
 }
 
-// not 33
+console.log("finished", acc);
