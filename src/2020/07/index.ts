@@ -10,23 +10,26 @@ const rules = readFileSync(join(__dirname, "./input.txt"), {
 const depTree: {
   [color: string]: {
     parents: string[];
-    contents: string[];
+    contents: {
+      color: string;
+      quantity: number;
+    }[];
   };
 } = {};
 
 // pale magenta bags contain 2 striped coral bags, 1 shiny orange bag, 3 vibrant white bags, 4 posh cyan bags.
 rules.forEach(rule => {
   const [containerColor, contents] = rule.split(" bags contain ");
-  const contentColors = contents
+  const contentColors: [number, string][] = contents
     .split(", ")
     .filter(rule => rule.indexOf("no other bags") === -1)
     .map(content => {
-      const contentInfo = /\d (.+) bag/.exec(content);
+      const contentInfo = /(\d) (.+) bag/.exec(content);
       if (!contentInfo) {
         console.log(rule);
         throw new Error("Incorrect rule");
       }
-      return contentInfo[1];
+      return [parseInt(contentInfo[1], 10), contentInfo[2]];
     });
   if (!depTree[containerColor]) {
     depTree[containerColor] = {
@@ -34,15 +37,19 @@ rules.forEach(rule => {
       contents: []
     };
   }
-  contentColors.forEach(contentColor => {
-    if (!depTree[contentColor]) {
-      depTree[contentColor] = {
+  contentColors.forEach(contentColorData => {
+    const [quantity, color] = contentColorData;
+    if (!depTree[color]) {
+      depTree[color] = {
         parents: [],
         contents: []
       };
     }
-    depTree[containerColor].contents.push(contentColor);
-    depTree[contentColor].parents.push(containerColor);
+    depTree[containerColor].contents.push({
+      quantity,
+      color
+    });
+    depTree[color].parents.push(containerColor);
   });
 });
 
@@ -53,13 +60,19 @@ function addParents(color: string) {
     addParents(parentColor);
   });
 }
-
 addParents("shiny gold");
 
-console.log(
-  parentColors.filter((value, index, self) => {
-    return self.indexOf(value) === index;
-  }).length
-);
+function getChildBagCount(color: string) {
+  let bagCount = 0;
+  depTree[color].contents.forEach(contentColor => {
+    bagCount += contentColor.quantity;
+    bagCount += contentColor.quantity * getChildBagCount(contentColor.color);
+  });
+  return bagCount;
+}
 
-// lower than 298
+console.log(
+  parentColors.filter((value, index, self) => self.indexOf(value) === index)
+    .length,
+  getChildBagCount("shiny gold")
+);
