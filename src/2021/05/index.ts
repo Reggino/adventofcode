@@ -1,11 +1,12 @@
 import { readFileSync } from "fs";
 import { join } from "path";
-import { getCurves } from "crypto";
 
-type TVector = { startX: number; startY: number; endX: number; endY: number };
-
-const max = 1000;
-const vectors: TVector[] = readFileSync(join(__dirname, "./input.txt"), {
+const vectors: {
+  startX: number;
+  startY: number;
+  endX: number;
+  endY: number;
+}[] = readFileSync(join(__dirname, "./input.txt"), {
   encoding: "utf-8"
 })
   .trim()
@@ -23,6 +24,7 @@ const vectors: TVector[] = readFileSync(join(__dirname, "./input.txt"), {
   });
 
 const dangerMap: (number | undefined)[][] = [];
+
 function writeDangerPoint(x: number, y: number) {
   if (!dangerMap[y]) {
     dangerMap[y] = [];
@@ -33,6 +35,20 @@ function writeDangerPoint(x: number, y: number) {
   }
   // @ts-ignore
   dangerMap[y][x] += 1;
+}
+function logDangerPointCount() {
+  console.log(
+    dangerMap.reduce((prev, row) => {
+      return (
+        prev +
+        (row
+          ? row.reduce((prev: number, point) => {
+              return prev + (point && point > 1 ? 1 : 0);
+            }, 0)
+          : 0)
+      );
+    }, 0)
+  );
 }
 
 vectors.forEach(vector => {
@@ -52,18 +68,7 @@ vectors.forEach(vector => {
   }
 });
 
-console.log(
-  dangerMap.reduce((prev, row) => {
-    return (
-      prev +
-      (row
-        ? row.reduce((prev: number, point) => {
-            return prev + (point && point > 1 ? 1 : 0);
-          }, 0)
-        : 0)
-    );
-  }, 0)
-);
+logDangerPointCount();
 
 vectors.forEach(vector => {
   if (vector.startX !== vector.endX && vector.startY !== vector.endY) {
@@ -83,15 +88,4 @@ vectors.forEach(vector => {
   }
 });
 
-console.log(
-  dangerMap.reduce((prev, row) => {
-    return (
-      prev +
-      (row
-        ? row.reduce((prev: number, point) => {
-            return prev + (point && point > 1 ? 1 : 0);
-          }, 0)
-        : 0)
-    );
-  }, 0)
-);
+logDangerPointCount();
