@@ -1,5 +1,6 @@
 import { readFileSync } from "fs";
 import { join } from "path";
+import { getCurves } from "crypto";
 
 type TVector = { startX: number; startY: number; endX: number; endY: number };
 
@@ -47,6 +48,37 @@ vectors.forEach(vector => {
     const endX = Math.max(vector.startX, vector.endX);
     while (startX <= endX) {
       writeDangerPoint(startX++, vector.startY);
+    }
+  }
+});
+
+console.log(
+  dangerMap.reduce((prev, row) => {
+    return (
+      prev +
+      (row
+        ? row.reduce((prev: number, point) => {
+            return prev + (point && point > 1 ? 1 : 0);
+          }, 0)
+        : 0)
+    );
+  }, 0)
+);
+
+vectors.forEach(vector => {
+  if (vector.startX !== vector.endX && vector.startY !== vector.endY) {
+    let startX = Math.min(vector.startX, vector.endX);
+    const endX = Math.max(vector.startX, vector.endX);
+    // is up means visually from left bottom to top right. (top being y=0)
+    const isUp =
+      vector.endY < vector.startY
+        ? vector.startX < vector.endX
+        : vector.startX > vector.endX;
+    let startY = isUp
+      ? Math.max(vector.startY, vector.endY)
+      : Math.min(vector.startY, vector.endY);
+    while (startX <= endX) {
+      writeDangerPoint(startX++, isUp ? startY-- : startY++);
     }
   }
 });
