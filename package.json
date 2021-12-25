@@ -19,7 +19,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "run": "./node_modules/.bin/ts-node-script src/2021/06/index.ts",
+    "run": "./node_modules/.bin/ts-node-script src/2021/07/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
