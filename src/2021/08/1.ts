@@ -20,10 +20,10 @@ console.log(
       prev +
       entry.outputValues.filter(
         value =>
-          value.length === 2 ||
-          value.length === 4 ||
-          value.length === 3 ||
-          value.length === 7
+          value.length === 2 || // 1
+          value.length === 4 || // 4
+          value.length === 3 || // 7
+          value.length === 7 // 8
       ).length
     );
   }, 0)
