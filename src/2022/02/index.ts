@@ -60,7 +60,7 @@ const outcomes = {
 const scores = values.map(([request, strategy]) => {
   const answer = strategyMap[strategy];
   let score = answerValues[answer];
-  let outcome = outcomes[request][answer];
+  const outcome = outcomes[request][answer];
   if (outcome === EOutcome.DRAW) {
     score += 3;
   }
@@ -95,7 +95,7 @@ const strategyScores = values.map(([request, strategy]) => {
     throw new Error("Could not find answer");
   }
   let score: number = answerValues[answer];
-  let outcome = outcomes[request][answer];
+  const outcome = outcomes[request][answer];
   if (outcome === EOutcome.DRAW) {
     score += 3;
   }

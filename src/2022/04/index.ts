@@ -12,7 +12,7 @@ const pairs = readFileSync(join(__dirname, "./input.txt"), {
       const digits = elf.split("-");
       const end = parseInt(digits[1]);
       let pointer = parseInt(digits[0]);
-      let result = [pointer];
+      const result = [pointer];
       while (end > pointer) {
         result.push(++pointer);
       }
