@@ -29,23 +29,18 @@ const moveData = rows.slice(10);
 moveData.forEach(instruction => {
   // move 3 from 9 to 4
   const [move, fromTo] = instruction.substring(5).split(" from ");
-  const [from, to] = fromTo.split(" to ");
+  const [from, to] = fromTo.split(" to ").map(parseInt);
   const moveInt = parseInt(move);
-  const fromIndex = parseInt(from);
-  const toIndex = parseInt(to);
 
   // process stacks1
   for (let i = 0; i < moveInt; i++) {
-    const crate = stacks1[fromIndex].pop() as string;
-    stacks1[toIndex].push(crate);
+    const crate = stacks1[from].pop() as string;
+    stacks1[to].push(crate);
   }
 
   // process stacks2
-  const crates = stacks2[fromIndex].splice(
-    stacks2[fromIndex].length - moveInt,
-    moveInt
-  );
-  stacks2[toIndex].splice(stacks2[toIndex].length, 0, ...crates);
+  const crates = stacks2[from].splice(stacks2[from].length - moveInt, moveInt);
+  stacks2[to].splice(stacks2[to].length, 0, ...crates);
 });
 
 console.log(stacks1.map(stack => stack[stack.length - 1]).join(""));
