@@ -22,8 +22,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "run": "./node_modules/.bin/ts-node-script src/2021/08/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run": "./node_modules/.bin/ts-node-script src/2022/06/2.ts"
   },
   "author": "Tim de Koning",
   "license": "UNLICENSED",
