@@ -1,6 +1,6 @@
 import { readFileSync } from "fs";
 import { join } from "path";
-import { difference, intersection } from "lodash";
+import { intersection } from "lodash";
 
 interface ICard {
   winning: number[];
