@@ -1,6 +1,6 @@
 import { readFileSync } from "fs";
 import { join } from "path";
-import { min } from "lodash";
+import { chunk, min } from "lodash";
 
 const lines = readFileSync(join(__dirname, "./input.txt"), {
   encoding: "utf-8"
@@ -67,8 +67,20 @@ for (const mapName of Object.keys(maps)) {
   }
 }
 
-const seedLocations = seeds.map(seed =>
-  Object.values(maps).reduce((prev, map) => map.get(prev), seed)
-);
+const getSeedLocation = (seed: number) =>
+  Object.values(maps).reduce((prev, map) => map.get(prev), seed);
 
-console.log(min(seedLocations));
+console.log(min(seeds.map(getSeedLocation)));
+
+let minSeedLocation2 = Number.MAX_SAFE_INTEGER;
+chunk(seeds, 2).forEach(([start, length]) => {
+  console.log({ start, length });
+  for (let seed = start; seed < start + length; seed++) {
+    const location = getSeedLocation(seed);
+    if (location < minSeedLocation2) {
+      minSeedLocation2 = location;
+    }
+  }
+});
+
+console.log(minSeedLocation2);
