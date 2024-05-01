@@ -31,7 +31,13 @@ function getNumberOfBeatCount(time: number, raceDistance: number) {
 }
 
 console.log(
+  "1",
   times
     .map((time, timeIndex) => getNumberOfBeatCount(time, distances[timeIndex]))
     .reduce((prev, number) => prev * number, 1)
+);
+
+console.log(
+  "2",
+  getNumberOfBeatCount(parseInt(times.join("")), parseInt(distances.join("")))
 );
