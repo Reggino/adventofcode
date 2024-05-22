@@ -20,7 +20,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "run": "./node_modules/.bin/ts-node-script src/2023/08/2.ts"
+    "run": "./node_modules/.bin/ts-node-script src/2023/09/1.ts"
   },
   "author": "Tim de Koning",
   "license": "UNLICENSED",
