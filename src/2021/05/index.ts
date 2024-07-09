@@ -7,19 +7,19 @@ const vectors: {
   endX: number;
   endY: number;
 }[] = readFileSync(join(__dirname, "./input.txt"), {
-  encoding: "utf-8"
+  encoding: "utf-8",
 })
   .trim()
   .split("\n")
-  .map(line => line.trim().split(" -> "))
+  .map((line) => line.trim().split(" -> "))
   .map(([startString, endString]) => {
-    const start = startString.split(",").map(x => parseInt(x, 10));
-    const end = endString.split(",").map(x => parseInt(x, 10));
+    const start = startString.split(",").map((x) => parseInt(x, 10));
+    const end = endString.split(",").map((x) => parseInt(x, 10));
     return {
       startX: start[0],
       startY: start[1],
       endX: end[0],
-      endY: end[1]
+      endY: end[1],
     };
   });
 
@@ -33,7 +33,7 @@ function writeDangerPoint(x: number, y: number) {
     dangerMap[y][x] = 1;
     return;
   }
-  // @ts-ignore
+  // @expect-error todo
   dangerMap[y][x] += 1;
 }
 function logDangerPointCount() {
@@ -47,11 +47,11 @@ function logDangerPointCount() {
             }, 0)
           : 0)
       );
-    }, 0)
+    }, 0),
   );
 }
 
-vectors.forEach(vector => {
+vectors.forEach((vector) => {
   if (vector.startX === vector.endX) {
     let startY = Math.min(vector.startY, vector.endY);
     const endY = Math.max(vector.startY, vector.endY);
@@ -70,7 +70,7 @@ vectors.forEach(vector => {
 
 logDangerPointCount();
 
-vectors.forEach(vector => {
+vectors.forEach((vector) => {
   if (vector.startX !== vector.endX && vector.startY !== vector.endY) {
     let startX = Math.min(vector.startX, vector.endX);
     const endX = Math.max(vector.startX, vector.endX);

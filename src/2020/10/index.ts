@@ -2,11 +2,11 @@ import { readFileSync } from "fs";
 import { join } from "path";
 
 const numbers: number[] = readFileSync(join(__dirname, "./input.txt"), {
-  encoding: "utf-8"
+  encoding: "utf-8",
 })
   .trim()
   .split("\n")
-  .map(line => parseInt(line, 10))
+  .map((line) => parseInt(line, 10))
   .sort((a, b) => (a < b ? -1 : 1));
 
 const diffs: { [diff: number]: number } = { 1: 0, 2: 0, 3: 1 }; // 1 is for the default +3 output
@@ -19,18 +19,18 @@ function getCombinationPerLength(lst: any, length: any): number[][] {
   //getCombinationPerLength([1,2,3], 2)
   //[[1,2], [1,3], [2,3]]
 
-  let combinations: any = [];
+  const combinations: any = [];
   if (length == 1) {
     lst.forEach((item: any) => {
       combinations.push([item]);
     });
   } else {
     for (let i = 0; i < lst.length; i++) {
-      let combinationsLength = getCombinationPerLength(
+      const combinationsLength = getCombinationPerLength(
         lst.slice(i + 1, lst.length),
-        length - 1
+        length - 1,
       );
-      combinationsLength.forEach(c => {
+      combinationsLength.forEach((c) => {
         c.push(lst[i]);
         combinations.push(c);
       });
@@ -45,7 +45,7 @@ function getCombinationsUptoLength(lst: number[]): number[][] {
 
   let combinations: any = []; //include empty
   for (let i = 1; i <= lst.length; i++) {
-    let combinationsOneLength = getCombinationPerLength(lst, i);
+    const combinationsOneLength = getCombinationPerLength(lst, i);
     combinations = combinations.concat(combinationsOneLength);
   }
 
@@ -71,11 +71,11 @@ function chainCorrect(input: number[]): boolean {
 
 function part2(input: number[]) {
   input.push(0);
-  let sorted = input.sort(function(a, b) {
+  const sorted = input.sort(function (a, b) {
     return a - b;
   });
 
-  let total = [];
+  const total = [];
   let temp = [];
   for (let i = 0; i < sorted.length - 2; i++) {
     const current = sorted[i];
@@ -97,15 +97,15 @@ function part2(input: number[]) {
     temp = [];
   }
 
-  let counts: number[] = [];
-  total.forEach(group => {
+  const counts: number[] = [];
+  total.forEach((group) => {
     let count = 1; //this is for the empty list
-    let combinations = getCombinationsUptoLength(group);
+    const combinations = getCombinationsUptoLength(group);
 
-    combinations.forEach(combination => {
+    combinations.forEach((combination) => {
       // console.log("combination", combination)
-      let clonedSorted = [...sorted];
-      combination.forEach(index => {
+      const clonedSorted = [...sorted];
+      combination.forEach((index) => {
         delete clonedSorted[index];
       });
       if (chainCorrect(clonedSorted)) {
@@ -117,7 +117,7 @@ function part2(input: number[]) {
   });
 
   let returnTotal = 1;
-  counts.forEach(count => {
+  counts.forEach((count) => {
     returnTotal *= count;
   });
 

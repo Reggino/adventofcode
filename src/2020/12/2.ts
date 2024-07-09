@@ -9,7 +9,7 @@ interface IState {
 }
 
 const result = readFileSync(join(__dirname, "./input.txt"), {
-  encoding: "utf-8"
+  encoding: "utf-8",
 })
   .trim()
   .split("\n")
@@ -17,31 +17,31 @@ const result = readFileSync(join(__dirname, "./input.txt"), {
     (prev, instruction) => {
       const value = parseInt(instruction.substr(1), 10);
       const { wpX, wpY } = prev;
-      let command = instruction[0];
+      const command = instruction[0];
       const reduceResult = { ...prev };
       switch (command) {
         case "N": // means to move north by the given value.
           return {
             ...prev,
-            wpY: wpY + value
+            wpY: wpY + value,
           };
 
         case "S": // means to move south by the given value.
           return {
             ...prev,
-            wpY: wpY - value
+            wpY: wpY - value,
           };
 
         case "E": // means to move east by the given value.
           return {
             ...prev,
-            wpX: wpX + value
+            wpX: wpX + value,
           };
 
         case "W": // means to move west by the given value.
           return {
             ...prev,
-            wpX: wpX - value
+            wpX: wpX - value,
           };
 
         case "L": // means to turn left the given number of degrees.
@@ -72,6 +72,6 @@ const result = readFileSync(join(__dirname, "./input.txt"), {
       }
       return reduceResult;
     },
-    { shipX: 0, shipY: 0, wpX: 10, wpY: 1 }
+    { shipX: 0, shipY: 0, wpX: 10, wpY: 1 },
   );
 console.log(Math.abs(result.shipX) + Math.abs(result.shipY));

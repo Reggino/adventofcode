@@ -1,14 +1,13 @@
-import { EventEmitter } from "events";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { IntcodePc } from "./IntcodePc";
 
 const defaultMem = readFileSync(join(__dirname, "./input.txt"), {
-  encoding: "utf-8"
+  encoding: "utf-8",
 })
   .trim()
   .split(",")
-  .map(line => Math.floor(parseInt(line, 10)));
+  .map((line) => Math.floor(parseInt(line, 10)));
 
 class Robot {
   private pc: IntcodePc;
@@ -52,8 +51,8 @@ class Robot {
     // );
 
     this.grid[this.y][this.x] = this.direction;
-    this.grid.forEach(row => {
-      row.forEach(val => process.stdout.write(`${val}`));
+    this.grid.forEach((row) => {
+      row.forEach((val) => process.stdout.write(`${val}`));
       process.stdout.write("\n");
     });
   }

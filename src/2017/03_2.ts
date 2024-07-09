@@ -1,5 +1,3 @@
-import { isNumber } from "util";
-
 function createSpiral(size: number): Array<Array<number | undefined>> {
   const result: Array<Array<number | undefined>> = [[]];
   if (!size) {
@@ -14,8 +12,8 @@ function createSpiral(size: number): Array<Array<number | undefined>> {
 
   function getValue(row: any, col: any): number {
     let value = 0;
-    [row - 1, row, row + 1].forEach(rowPointer => {
-      [col - 1, col, col + 1].forEach(colPointer => {
+    [row - 1, row, row + 1].forEach((rowPointer) => {
+      [col - 1, col, col + 1].forEach((colPointer) => {
         if (result[rowPointer] && result[rowPointer][colPointer]) {
           value += result[rowPointer][colPointer] as number;
         }
@@ -61,7 +59,7 @@ function createSpiral(size: number): Array<Array<number | undefined>> {
           continue;
         }
         // shift all rows ->
-        result.forEach(row => {
+        result.forEach((row) => {
           row.unshift(undefined);
         });
         result[0][0] = getValue(0, 0);
@@ -87,4 +85,4 @@ function createSpiral(size: number): Array<Array<number | undefined>> {
 
 const spiral = createSpiral(100000);
 
-spiral.forEach(row => console.log(JSON.stringify(row)));
+spiral.forEach((row) => console.log(JSON.stringify(row)));

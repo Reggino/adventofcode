@@ -1,5 +1,3 @@
-import { isNumber } from "util";
-
 function createSpiral(size: number): Array<Array<number | undefined>> {
   const result: Array<Array<number | undefined>> = [[]];
   if (!size) {
@@ -43,7 +41,7 @@ function createSpiral(size: number): Array<Array<number | undefined>> {
           continue;
         }
         // shift all rows ->
-        result.forEach(row => {
+        result.forEach((row) => {
           row.unshift(undefined);
         });
         result[0][0] = i;

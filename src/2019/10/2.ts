@@ -3,11 +3,11 @@ import { join } from "path";
 
 function getMap() {
   return readFileSync(join(__dirname, "./input.txt"), {
-    encoding: "utf-8"
+    encoding: "utf-8",
   })
     .trim()
     .split("\n")
-    .map(row => row.split(""));
+    .map((row) => row.split(""));
 }
 
 interface IPoint {
@@ -60,7 +60,7 @@ function getGridPointsBetween(source: IPoint, dest: IPoint): IPoint[] {
 function isDestVisibleFromSource(
   sourcePoint: IPoint,
   destPoint: IPoint,
-  destVal: string
+  destVal: string,
 ): boolean {
   if (
     (sourcePoint.x === destPoint.x && sourcePoint.y === destPoint.y) ||
@@ -73,12 +73,12 @@ function isDestVisibleFromSource(
   const map = getMap();
   return (
     getGridPointsBetween(sourcePoint, destPoint)
-      .map(point => (map[point.y] ? map[point.y][point.x] : "."))
+      .map((point) => (map[point.y] ? map[point.y][point.x] : "."))
       .indexOf("#") === -1
   );
 }
 
-let shotPoints: IPoint[] = [];
+const shotPoints: IPoint[] = [];
 
 function shoot(point: IPoint) {
   const angle =
@@ -87,7 +87,7 @@ function shoot(point: IPoint) {
     90;
   shotPoints.push({
     ...point,
-    angle: angle < 0 ? angle + 360 : angle
+    angle: angle < 0 ? angle + 360 : angle,
   });
 }
 
@@ -95,7 +95,7 @@ const laserPoint: IPoint = { x: 25, y: 31 };
 
 const visibleMap = getMap().map((destRow, destY: number) => {
   return destRow.map((destVal, destX: number) =>
-    isDestVisibleFromSource(laserPoint, { x: destX, y: destY }, destVal)
+    isDestVisibleFromSource(laserPoint, { x: destX, y: destY }, destVal),
   );
 });
 

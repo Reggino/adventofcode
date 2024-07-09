@@ -2,26 +2,26 @@ import { readFileSync } from "fs";
 import { join } from "path";
 
 const passports = readFileSync(join(__dirname, "./input.txt"), {
-  encoding: "utf-8"
+  encoding: "utf-8",
 })
   .trim()
   .split("\n\n")
-  .map(line =>
+  .map((line) =>
     line
       .replace(/\n/g, " ")
       .trim()
       .split(" ")
       .reduce((prev, piece) => {
         const pieceData = piece.split(":");
-        // @ts-ignore
+        // @expect-error todo
         prev[pieceData[0]] = pieceData[1];
         return prev;
-      }, {})
+      }, {}),
   );
 
 const isValid1 = (passport: any) => {
   let valid = true;
-  ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"].forEach(requiredProp => {
+  ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"].forEach((requiredProp) => {
     if (!passport[requiredProp]) {
       valid = false;
     }

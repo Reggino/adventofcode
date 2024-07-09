@@ -1,60 +1,60 @@
 import { readFileSync } from "fs";
 import { join } from "path";
-import { startsWith, sum } from "lodash";
+import { sum } from "lodash";
 
 enum EOutcome {
   WIN,
   LOSE,
-  DRAW
+  DRAW,
 }
 
 enum ERockPaperScissor {
   ROCK = "A",
   PAPER = "B",
-  SCISSORS = "C"
+  SCISSORS = "C",
 }
 
 enum EStrategy {
   X = "X",
   Y = "Y",
-  Z = "Z"
+  Z = "Z",
 }
 
 const values = readFileSync(join(__dirname, "./input.txt"), {
-  encoding: "utf-8"
+  encoding: "utf-8",
 })
   .trim()
   .split("\n")
-  .map(row => row.split(" ")) as [ERockPaperScissor, EStrategy][];
+  .map((row) => row.split(" ")) as [ERockPaperScissor, EStrategy][];
 
 const answerValues = {
   A: 1,
   B: 2,
-  C: 3
+  C: 3,
 };
 
 const strategyMap = {
   X: ERockPaperScissor.ROCK,
   Y: ERockPaperScissor.PAPER,
-  Z: ERockPaperScissor.SCISSORS
+  Z: ERockPaperScissor.SCISSORS,
 };
 
 const outcomes = {
   A: {
     A: EOutcome.DRAW,
     B: EOutcome.WIN,
-    C: EOutcome.LOSE
+    C: EOutcome.LOSE,
   },
   B: {
     A: EOutcome.LOSE,
     B: EOutcome.DRAW,
-    C: EOutcome.WIN
+    C: EOutcome.WIN,
   },
   C: {
     A: EOutcome.WIN,
     B: EOutcome.LOSE,
-    C: EOutcome.DRAW
-  }
+    C: EOutcome.DRAW,
+  },
 };
 
 const scores = values.map(([request, strategy]) => {
