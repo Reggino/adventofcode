@@ -17,3 +17,10 @@ console.log(
     0,
   ),
 );
+
+console.log(
+  list1.reduce((prev, value) => {
+    const score = list2.filter((el) => el === value).length * value;
+    return prev + score;
+  }, 0),
+);
