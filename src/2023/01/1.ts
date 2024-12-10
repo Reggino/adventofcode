@@ -3,11 +3,11 @@ import { join } from "path";
 import { sum } from "lodash";
 
 const values = readFileSync(join(__dirname, "./input.txt"), {
-  encoding: "utf-8"
+  encoding: "utf-8",
 })
   .trim()
   .split("\n")
-  .map(line => {
+  .map((line) => {
     const firstMatch = line.match(/^\D*(\d)/);
     const lastMatch = line.match(/(\d)\D*$/);
 
